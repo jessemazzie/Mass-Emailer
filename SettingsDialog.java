@@ -18,6 +18,23 @@ public class SettingsDialog extends JDialog {
 		//Instantiate our textfields/passwordfields
 		serverDomainBox = new JTextField(15);
 		portNumberBox = new JTextField(5);
+		portNumberBox.setInputVerifier(new InputVerifier() {
+			@Override
+			public boolean verify(JComponent component) {
+				JTextField textField;
+				int intValue;
+				
+				textField = (JTextField) component;
+				intValue = Integer.parseInt(textField.getText());
+				
+				if(intValue < 0) {
+					//JOptionPane.showMessageDialog(null,"Port number must be above 0.", JOptionPane.ERROR_MESSAGE);
+					return false;
+				}
+				
+				return true;
+			}
+		});
 		senderUsername = new JTextField(15);
 		senderPassword = new JPasswordField(15);
 		sentFrom = new JTextField(15);
@@ -39,8 +56,7 @@ public class SettingsDialog extends JDialog {
 		inputPanel.add(sentDate);
 		inputPanel.add(new JLabel("Subject: "));
 		inputPanel.add(subject);
-		
-		
+			
 		//configure the dialog
 		cp = getContentPane();
 		setTitle("Mass Emailer");
