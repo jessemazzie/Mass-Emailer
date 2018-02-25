@@ -77,6 +77,7 @@ public class SettingsDialog extends JDialog implements ActionListener {
 	JButton newButton(String label, String actionCommand) {
 		JButton tempButton = new JButton(label);
 		tempButton.setActionCommand(actionCommand);
+		tempButton.addActionListener(this);
 		
 		return tempButton;
 	}
