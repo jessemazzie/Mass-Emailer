@@ -16,6 +16,7 @@ public class SettingsDialog extends JDialog implements ActionListener {
 	
 	
 	SettingsDialog() {
+		this.setLayout(new BorderLayout());
 		JPanel inputPanel = new JPanel(new GridLayout(7, 2));
 		JPanel buttonPanel = new JPanel(new FlowLayout());
 		
@@ -67,10 +68,17 @@ public class SettingsDialog extends JDialog implements ActionListener {
 		cp = getContentPane();
 		setTitle("Mass Emailer");
 		setVisible(true);
-		setSize(500, 500);
+		setSize(500, 250);
 		
-		cp.add(inputPanel);
-		cp.add(buttonPanel);
+		cp.add(inputPanel, BorderLayout.NORTH);
+		cp.add(buttonPanel, BorderLayout.CENTER);
+	}
+	
+	JButton newButton(String label, String actionCommand) {
+		JButton tempButton = new JButton(label);
+		tempButton.setActionCommand(actionCommand);
+		
+		return tempButton;
 	}
 
 
