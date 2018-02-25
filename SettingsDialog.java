@@ -1,7 +1,10 @@
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.*;
 
-public class SettingsDialog extends JDialog {
+public class SettingsDialog extends JDialog implements ActionListener {
 	Container cp;
 	JTextField serverDomainBox;
 	JTextField portNumberBox;
@@ -14,6 +17,7 @@ public class SettingsDialog extends JDialog {
 	
 	SettingsDialog() {
 		JPanel inputPanel = new JPanel(new GridLayout(7, 2));
+		JPanel buttonPanel = new JPanel(new FlowLayout());
 		
 		//Instantiate our textfields/passwordfields
 		serverDomainBox = new JTextField(15);
@@ -27,8 +31,8 @@ public class SettingsDialog extends JDialog {
 				textField = (JTextField) component;
 				intValue = Integer.parseInt(textField.getText());
 				
-				if(intValue < 0) {
-					//JOptionPane.showMessageDialog(null,"Port number must be above 0.", JOptionPane.ERROR_MESSAGE);
+				if(intValue < 0 || intValue > 65535) {
+					JOptionPane.showMessageDialog(null, null, "Port number must be between 0 and 65535.", JOptionPane.ERROR_MESSAGE);
 					return false;
 				}
 				
@@ -56,6 +60,8 @@ public class SettingsDialog extends JDialog {
 		inputPanel.add(sentDate);
 		inputPanel.add(new JLabel("Subject: "));
 		inputPanel.add(subject);
+		
+		buttonPanel.add(new JButton("Submit"));
 			
 		//configure the dialog
 		cp = getContentPane();
@@ -64,5 +70,13 @@ public class SettingsDialog extends JDialog {
 		setSize(500, 500);
 		
 		cp.add(inputPanel);
+		cp.add(buttonPanel);
+	}
+
+
+	@Override
+	public void actionPerformed(ActionEvent ae) {
+		// TODO Auto-generated method stub
+		
 	}
 }
