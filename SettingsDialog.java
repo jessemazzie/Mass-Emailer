@@ -69,12 +69,12 @@ public class SettingsDialog extends JDialog implements ActionListener {
 		inputPanel.add(messageContents);
 		
 		buttonPanel.add(new JButton("Submit"));
-			
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		//configure the dialog
 		cp = getContentPane();
 		setTitle("Mass Emailer");
 		setVisible(true);
-		setSize(500, 250);
+		setSize(500, 400);
 		
 		cp.add(inputPanel, BorderLayout.NORTH);
 		cp.add(buttonPanel, BorderLayout.CENTER);
