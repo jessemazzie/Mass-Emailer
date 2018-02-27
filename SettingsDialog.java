@@ -23,6 +23,7 @@ public class SettingsDialog extends JDialog implements ActionListener {
 		//Instantiate our textfields/passwordfields
 		serverDomainBox = new JTextField(15);
 		portNumberBox = new JTextField(5);
+		portNumberBox.setText("550");
 		portNumberBox.setInputVerifier(new InputVerifier() {
 			@Override
 			public boolean verify(JComponent component) {
@@ -41,6 +42,7 @@ public class SettingsDialog extends JDialog implements ActionListener {
 			}
 		});
 		senderUsername = new JTextField(15);
+		senderUsername.setText("JesseMazzie");
 		senderPassword = new JPasswordField(15);
 		sentFrom = new JTextField(15);
 		sentDate = new JTextField(15);
