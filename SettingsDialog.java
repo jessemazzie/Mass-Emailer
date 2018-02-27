@@ -6,6 +6,7 @@ import javax.swing.*;
 
 public class SettingsDialog extends JDialog implements ActionListener {
 	Container cp;
+	MailService mailService;
 	JTextField serverDomainBox;
 	JTextField portNumberBox;
 	JTextField senderUsername;
@@ -23,8 +24,9 @@ public class SettingsDialog extends JDialog implements ActionListener {
 		
 		//Instantiate our textfields/passwordfields
 		serverDomainBox = new JTextField(15);
+		serverDomainBox.setText("smtp.gmx.com");
 		portNumberBox = new JTextField(5);
-		portNumberBox.setText("550");
+		portNumberBox.setText("456");
 		portNumberBox.setInputVerifier(new InputVerifier() {
 			@Override
 			public boolean verify(JComponent component) {
@@ -43,8 +45,9 @@ public class SettingsDialog extends JDialog implements ActionListener {
 			}
 		});
 		senderUsername = new JTextField(15);
-		senderUsername.setText("JesseMazzie");
+		senderUsername.setText("ReynoldsHaberdashery@gmx.com");
 		senderPassword = new JPasswordField(15);
+		senderPassword.setText("Haberdashery1!");
 		sentFrom = new JTextField(15);
 		sentDate = new JTextField(15);
 		subject = new JTextField(15);
@@ -69,13 +72,14 @@ public class SettingsDialog extends JDialog implements ActionListener {
 		inputPanel.add(messageContents);
 		
 		buttonPanel.add(new JButton("Submit"));
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		//configure the dialog
 		cp = getContentPane();
 		setTitle("Mass Emailer");
 		setVisible(true);
 		setSize(500, 400);
+		mailService = new MailService(serverDomainBox.getText(), portNumberBox.getText(), String.valueOf(senderPassword.getPassword()), senderUsername.getText());
 		
+		mailService.sendMail(senderUsername.getText(), "jmazzie2@students.fairmontstate.edu", "Test");
 		cp.add(inputPanel, BorderLayout.NORTH);
 		cp.add(buttonPanel, BorderLayout.CENTER);
 	}
