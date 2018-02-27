@@ -13,11 +13,12 @@ public class SettingsDialog extends JDialog implements ActionListener {
 	JTextField sentFrom;
 	JTextField sentDate;
 	JTextField subject;
+	JTextArea messageContents;
 	
 	
 	SettingsDialog() {
 		this.setLayout(new BorderLayout());
-		JPanel inputPanel = new JPanel(new GridLayout(7, 2));
+		JPanel inputPanel = new JPanel(new GridLayout(8, 2));
 		JPanel buttonPanel = new JPanel(new FlowLayout());
 		
 		//Instantiate our textfields/passwordfields
@@ -47,6 +48,7 @@ public class SettingsDialog extends JDialog implements ActionListener {
 		sentFrom = new JTextField(15);
 		sentDate = new JTextField(15);
 		subject = new JTextField(15);
+		messageContents = new JTextArea(2, 20);
 		
 		//Add them to the JPanel
 		inputPanel.add(new JLabel("Server domain: "));
@@ -63,6 +65,8 @@ public class SettingsDialog extends JDialog implements ActionListener {
 		inputPanel.add(sentDate);
 		inputPanel.add(new JLabel("Subject: "));
 		inputPanel.add(subject);
+		inputPanel.add(new JLabel("Message body: "));
+		inputPanel.add(messageContents);
 		
 		buttonPanel.add(new JButton("Submit"));
 			
