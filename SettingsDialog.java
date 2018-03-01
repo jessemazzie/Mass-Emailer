@@ -4,7 +4,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
-public class SettingsDialog extends JDialog implements ActionListener {
+public class SettingsDialog extends JFrame implements ActionListener {
 	Container cp;
 	MailService mailService;
 	JTextField serverDomainBox;
