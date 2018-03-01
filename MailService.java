@@ -1,4 +1,5 @@
 import java.util.Properties;
+import java.util.Vector;
 
 import javax.mail.*;
 import javax.mail.Message.RecipientType;
@@ -24,17 +25,19 @@ public class MailService {
 		session = Session.getDefaultInstance(props, authenticator);
 	}
 	
-	void sendMail(String fromAddress, String toAddress, String body) {
+	void sendMail(String fromAddress, Vector<String> toAddresses, String body) {
 		MimeMessage message = new MimeMessage(session);
 		
 		try {
 			message.setFrom(new InternetAddress(fromAddress));
-			message.setRecipient(RecipientType.TO, new InternetAddress(toAddress));
+
+			for(String recipient : toAddresses) {
+				message.addRecipient(RecipientType.TO, new InternetAddress(recipient));
+			}
+			
 			message.setText(body);
 			//TODO: Set date
 			Transport.send(message);
-		} catch (AddressException e) {
-			//TODO: Put in array to be put in file for "bad" emails.
 		} catch (MessagingException e) {
 			//Not sure what causes this.
 			e.printStackTrace();

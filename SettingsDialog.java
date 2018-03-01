@@ -86,10 +86,12 @@ public class SettingsDialog extends JFrame implements ActionListener {
 		setTitle("Mass Emailer");
 		setVisible(true);
 		setSize(500, 400);
+		
 		mailService = new MailService(serverDomainBox.getText(), portNumberBox.getText(), String.valueOf(senderPassword.getPassword()), senderUsername.getText());
 
 		cp.add(inputPanel, BorderLayout.NORTH);
 		cp.add(buttonPanel, BorderLayout.CENTER);
+		this.pack();
 	}
 	
 	JButton newButton(String label, String actionCommand) {
