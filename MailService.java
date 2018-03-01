@@ -54,6 +54,9 @@ public class MailService {
 					e.printStackTrace();
 				} 
 			}
+			
+			goodEmails.close();
+			badEmails.close();
 		} catch (FileNotFoundException e1) {
 			//This shouldn't happen (hopefully)
 			e1.printStackTrace();

@@ -34,31 +34,19 @@ public class SettingsDialog extends JFrame implements ActionListener {
 		//Instantiate our textfields/passwordfields
 		serverDomainBox = new JTextField(15);
 		serverDomainBox.setText("smtp.gmx.com");
+		
 		portNumberBox = new JTextField(5);
 		portNumberBox.setText("456");
-		portNumberBox.setInputVerifier(new InputVerifier() {
-			@Override
-			public boolean verify(JComponent component) {
-				JTextField textField;
-				int intValue;
-				
-				textField = (JTextField) component;
-				intValue = Integer.parseInt(textField.getText());
-				
-				if(intValue < 0 || intValue > 65535) {
-					JOptionPane.showMessageDialog(null, null, "Port number must be between 0 and 65535.", JOptionPane.ERROR_MESSAGE);
-					return false;
-				}
-				
-				return true;
-			}
-		});
+		
 		senderUsername = new JTextField(15);
 		senderUsername.setText("testing1232@gmx.com");
+		
 		senderPassword = new JPasswordField(15);
 		senderPassword.setText("Testing1!");
+		
 		sentFrom = new JTextField(15);
 		sentDate = new JTextField(15);
+		
 		subject = new JTextField(15);
 		messageContents = new JTextArea(2, 20);
 		
