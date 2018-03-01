@@ -1,3 +1,6 @@
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.PrintWriter;
 import java.util.Properties;
 import java.util.Vector;
 
@@ -26,21 +29,34 @@ public class MailService {
 	}
 	
 	void sendMail(String fromAddress, Vector<String> toAddresses, String body) {
+		PrintWriter goodEmails, badEmails;
 		MimeMessage message = new MimeMessage(session);
 		
 		try {
-			message.setFrom(new InternetAddress(fromAddress));
-
+			goodEmails = new PrintWriter(new FileOutputStream("good_emails.txt"));
+			badEmails = new PrintWriter(new FileOutputStream("bad_emails.txt"));
+		
+		
 			for(String recipient : toAddresses) {
-				message.addRecipient(RecipientType.TO, new InternetAddress(recipient));
+				try {
+					message.setFrom(new InternetAddress(fromAddress));
+					message.setRecipient(RecipientType.TO, new InternetAddress(recipient));
+					message.setText(body);
+					//TODO: Set date
+					Transport.send(message);
+					System.out.println("Message successfully sent to " + recipient);
+					goodEmails.print(recipient);
+				} catch (SendFailedException ae) {
+					System.out.println("Address exception occured");
+					badEmails.print(recipient);
+				} catch (MessagingException e) {
+					//Not sure what causes this.
+					e.printStackTrace();
+				} 
 			}
-			
-			message.setText(body);
-			//TODO: Set date
-			Transport.send(message);
-		} catch (MessagingException e) {
-			//Not sure what causes this.
-			e.printStackTrace();
+		} catch (FileNotFoundException e1) {
+			//This shouldn't happen (hopefully)
+			e1.printStackTrace();
 		}
 	}
 }

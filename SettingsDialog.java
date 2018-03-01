@@ -54,9 +54,9 @@ public class SettingsDialog extends JFrame implements ActionListener {
 			}
 		});
 		senderUsername = new JTextField(15);
-		senderUsername.setText("ReynoldsHaberdashery@gmx.com");
+		senderUsername.setText("testing1232@gmx.com");
 		senderPassword = new JPasswordField(15);
-		senderPassword.setText("Haberdashery1!");
+		senderPassword.setText("Testing1!");
 		sentFrom = new JTextField(15);
 		sentDate = new JTextField(15);
 		subject = new JTextField(15);
@@ -92,6 +92,7 @@ public class SettingsDialog extends JFrame implements ActionListener {
 		cp.add(inputPanel, BorderLayout.NORTH);
 		cp.add(buttonPanel, BorderLayout.CENTER);
 		this.pack();
+		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 	}
 	
 	JButton newButton(String label, String actionCommand) {
@@ -121,7 +122,7 @@ public class SettingsDialog extends JFrame implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent ae) {
 		if(ae.getActionCommand().equals("SUBMIT")) {
-			mailService.sendMail(senderUsername.getText(), "jmazzie2@students.fairmontstate.edu", messageContents.getText());
+			mailService.sendMail(senderUsername.getText(), recipients, messageContents.getText());
 		}
 	}
 }
