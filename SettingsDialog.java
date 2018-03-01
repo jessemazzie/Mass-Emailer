@@ -1,6 +1,12 @@
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.Vector;
 
 import javax.swing.*;
 
@@ -15,9 +21,12 @@ public class SettingsDialog extends JFrame implements ActionListener {
 	JTextField sentDate;
 	JTextField subject;
 	JTextArea messageContents;
+	Vector<String> recipients;
 	
 	
 	SettingsDialog() {
+		recipients = new Vector<String>();
+		getRecipients();
 		this.setLayout(new BorderLayout());
 		JPanel inputPanel = new JPanel(new GridLayout(8, 2));
 		JPanel buttonPanel = new JPanel(new FlowLayout());
@@ -71,15 +80,14 @@ public class SettingsDialog extends JFrame implements ActionListener {
 		inputPanel.add(new JLabel("Message body: "));
 		inputPanel.add(messageContents);
 		
-		buttonPanel.add(new JButton("Submit"));
+		buttonPanel.add(newButton("Submit", "SUBMIT"));
 		//configure the dialog
 		cp = getContentPane();
 		setTitle("Mass Emailer");
 		setVisible(true);
 		setSize(500, 400);
 		mailService = new MailService(serverDomainBox.getText(), portNumberBox.getText(), String.valueOf(senderPassword.getPassword()), senderUsername.getText());
-		
-		mailService.sendMail(senderUsername.getText(), "jmazzie2@students.fairmontstate.edu", "Test");
+
 		cp.add(inputPanel, BorderLayout.NORTH);
 		cp.add(buttonPanel, BorderLayout.CENTER);
 	}
@@ -91,11 +99,27 @@ public class SettingsDialog extends JFrame implements ActionListener {
 		
 		return tempButton;
 	}
-
+	
+	void getRecipients() {
+		String line; 
+		try {
+			FileInputStream fis = new FileInputStream("emails.txt");
+			BufferedReader reader = new BufferedReader(new InputStreamReader(fis));
+			
+			while((line = reader.readLine()) != null) 
+				recipients.add(line);
+			
+			System.out.println(recipients);
+		} catch (IOException e) {
+			//SHOW ERROR MESSAGE HERE.
+			e.printStackTrace();
+		}
+	}
 
 	@Override
 	public void actionPerformed(ActionEvent ae) {
-		// TODO Auto-generated method stub
-		
+		if(ae.getActionCommand().equals("SUBMIT")) {
+			mailService.sendMail(senderUsername.getText(), "jmazzie2@students.fairmontstate.edu", messageContents.getText());
+		}
 	}
 }
